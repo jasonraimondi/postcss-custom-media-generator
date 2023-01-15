@@ -1,4 +1,10 @@
 {
   "extends": "@jmondi/tsconfig",
-  "include": ["src/**/*"],
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "outDir": "dist",
+    "declaration": true
+  },
+  "include": ["src/**/*"]
 }
