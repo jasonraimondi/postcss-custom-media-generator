@@ -1,29 +1,35 @@
+import { generateMediaQueries } from "./generate_media_queries";
+import { AtRule } from "postcss";
+
 export const postcss = true;
 
 export type Options = Record<string, string>;
 
 export default (opts: Options = {}) => {
+  const { strings, numbers } = extractNumbers(opts);
+  const config = Object.assign(strings, generateMediaQueries(numbers), {});
+
   return {
     postcssPlugin: "postcss-custom-media-generator",
 
-    Root (root: any, _postcss: any) {
-      for (const [key, value] of Object.entries(opts)) {
-        root.append(`@custom-media ${key} (${value})`);
+    Root(root: any, _postcss: any) {
+      for (const [key, value] of Object.entries(config)) {
+        const rule = new AtRule({ name: "custom-media", params: `${key} ${value}` });
+        root.append(rule);
       }
-    }
-
-    /*
-    Declaration (decl, postcss) {
-      // The faster way to find Declaration node
-    }
-    */
-
-    /*
-    Declaration: {
-      color: (decl, postcss) {
-        // The fastest way find Declaration node if you know property name
-      }
-    }
-    */
+    },
   };
+}
+
+function extractNumbers(obj: Record<string, string | number>) {
+  let numbers: Record<string, number> = {};
+  let strings: Record<string, string> = {};
+  for (let [key, value] of Object.entries(obj)) {
+    if (typeof value === "number") {
+      numbers[key] = value;
+    } else {
+      strings[key] = value;
+    }
+  }
+  return { numbers, strings };
 }
