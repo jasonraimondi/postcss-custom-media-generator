@@ -1,41 +1,33 @@
-name: Test
-on:
-  push:
-  pull_request:
+name: Continuous Integration
+
+on: [push, pull_request]
+
 env:
-  FORCE_COLOR: 2
+  PNPM_VERSION: "7"
+  NODE_VERSION: "18.x"
+
 jobs:
-  full:
-    name: Node.js 15 Full
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v2
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 15
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-      - name: Run tests
-        run: yarn test
-  short:
-    runs-on: ubuntu-latest
+  test:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+
+    name: "${{ matrix.os }} | Node ${{ matrix.node }}"
+
+    runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
-        node-version:
-          - 14
-          - 12
-          - 10
-    name: Node.js ${{ matrix.node-version }} Quick
+        node-version: [16.x, 18.x]
+        os: [ubuntu-latest]
+
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v2
-      - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-      - name: Run unit tests
-        run: npx jest
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm i --frozen-lockfile --production false
+      - run: pnpm test
