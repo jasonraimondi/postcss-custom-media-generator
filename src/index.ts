@@ -13,7 +13,8 @@ export default (opts: Options = {}) => {
     postcssPlugin: "postcss-custom-media-generator",
 
     Root(root: any, _postcss: any) {
-      for (const [key, value] of Object.entries(config)) {
+      for (let [key, value] of Object.entries(config)) {
+        if (value[0] !== "(" && value[value.length - 1] !== ")") value = `(${value})`;
         const rule = new AtRule({ name: "custom-media", params: `${key} ${value}` });
         root.append(rule);
       }

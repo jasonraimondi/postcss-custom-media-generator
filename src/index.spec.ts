@@ -13,8 +13,7 @@ it("directly copies prehyphened", async () => {
     "--dark": "prefers-color-scheme: dark",
   };
 
-
-  await run("", "@custom-media --dark prefers-color-scheme: dark", config);
+  await run("", "@custom-media --dark (prefers-color-scheme: dark)", config);
 });
 
 it("does something", async () => {
@@ -41,8 +40,8 @@ it("works with mixed string keys", async () => {
   };
 
 
-  await run("@custom-media --light prefers-color-scheme: light", `@custom-media --light prefers-color-scheme: light;
-@custom-media --dark prefers-color-scheme: dark;
+  await run("@custom-media --light (prefers-color-scheme: light)", `@custom-media --light (prefers-color-scheme: light);
+@custom-media --dark (prefers-color-scheme: dark);
 @custom-media --sm-only (min-width: 600px) and (max-width: 799px);
 @custom-media --sm (min-width: 600px);
 @custom-media --md (min-width: 800px);
