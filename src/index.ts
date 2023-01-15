@@ -1,16 +1,16 @@
-/**
- * @type {import('postcss').PluginCreator}
- */
-module.exports = (opts = {}) => {
-  // Work with options here
+export const postcss = true;
 
+export type Options = Record<string, string>;
+
+export default (opts: Options = {}) => {
   return {
     postcssPlugin: "postcss-custom-media-generator",
-    /*
-    Root (root, postcss) {
-      // Transform CSS AST here
+
+    Root (root: any, _postcss: any) {
+      for (const [key, value] of Object.entries(opts)) {
+        root.append(`@custom-media ${key} (${value})`);
+      }
     }
-    */
 
     /*
     Declaration (decl, postcss) {
@@ -26,6 +26,4 @@ module.exports = (opts = {}) => {
     }
     */
   };
-};
-
-module.exports.postcss = true;
+}

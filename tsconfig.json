@@ -1,0 +1,4 @@
+{
+  "extends": "@jmondi/tsconfig",
+  "include": ["src/**/*"],
+}
