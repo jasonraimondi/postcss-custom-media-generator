@@ -1,5 +1,5 @@
-import { generateMediaQueries } from "./generate_media_queries";
 import { AtRule } from "postcss";
+import { generateMediaQueries } from "./generate_media_queries";
 
 export const postcss = true;
 
@@ -12,7 +12,7 @@ export default (opts: Options = {}) => {
   return {
     postcssPlugin: "postcss-custom-media-generator",
 
-    Root(root: any, _postcss: any) {
+    Once(root: any) {
       for (let [key, value] of Object.entries(config)) {
         if (value[0] !== "(" && value[value.length - 1] !== ")") value = `(${value})`;
         const rule = new AtRule({ name: "custom-media", params: `${key} ${value}` });
