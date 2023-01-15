@@ -4,16 +4,30 @@
 
 [PostCSS]: https://github.com/postcss/postcss
 
-```css
-.foo {
-  /* Input example */
+```diff
+module.exports = {
+  plugins: [
+    "postcss-custom-media-generator": {
+      "--light": "prefers-color-scheme: light",
+      "--dark": "prefers-color-scheme: dark",
+      sm: 600,
+      md: 800,
+      lg: 1000,
+    },
+    autoprefixer: {},
+  ]
 }
 ```
 
-```css
-.foo {
-  /* Output example */
-}
+```postcss
+@custom-media --light (prefers-color-scheme: light);
+@custom-media --dark (prefers-color-scheme: dark);
+@custom-media --sm-only (min-width: 600px) and (max-width: 799px);
+@custom-media --sm (min-width: 600px);
+@custom-media --md-only (min-width: 800px) and (max-width: 999px);
+@custom-media --md (min-width: 800px);
+@custom-media --lg (min-width: 1000px);
+@custom-media --lg-only (min-width: 1000px);
 ```
 
 ## Usage
@@ -36,7 +50,7 @@ and set this plugin in settings.
 ```diff
 module.exports = {
   plugins: [
-+   require('postcss-custom-media-generator'),
++   require('postcss-custom-media-generator')({ /* options */ }),
     require('autoprefixer')
   ]
 }
