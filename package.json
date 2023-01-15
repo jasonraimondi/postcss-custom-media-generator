@@ -1,6 +1,6 @@
 {
   "name": "postcss-custom-media-generator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "PostCSS plugin custom media generator",
   "main": "dist/index.js",
   "keywords": [
@@ -16,8 +16,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "prepublish": "rm -rf ./dist && pnpm test && pnpm build",
-    "publish": "clean-publish"
+    "prepublish": "rm -rf ./dist && pnpm test && pnpm build"
   },
   "author": "Jason Raimondi <jason@raimondi.us>",
   "license": "MIT",
