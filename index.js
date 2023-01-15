@@ -5,7 +5,7 @@ module.exports = (opts = {}) => {
   // Work with options here
 
   return {
-    postcssPlugin: 'postcss-custom-media-generator',
+    postcssPlugin: "postcss-custom-media-generator",
     /*
     Root (root, postcss) {
       // Transform CSS AST here
@@ -25,7 +25,7 @@ module.exports = (opts = {}) => {
       }
     }
     */
-  }
-}
+  };
+};
 
-module.exports.postcss = true
+module.exports.postcss = true;

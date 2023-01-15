@@ -1,5 +1,6 @@
 *dist/
 *generated/
+*coverage/
 
 pnpm-*
 *.md
