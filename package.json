@@ -20,7 +20,7 @@
   },
   "author": "Jason Raimondi <jason@raimondi.us>",
   "license": "MIT",
-  "repository": "jasonraimondi/postcss-custom-media-generator",
+  "repository": "allmyfutures/postcss-custom-media-generator",
   "engines": {
     "node": ">=12.0.0"
   },
