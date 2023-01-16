@@ -30,4 +30,14 @@ jobs:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
       - run: pnpm i --frozen-lockfile --production false
-      - run: pnpm test
+      - run: pnpm test -- --coverage
+      - run: pnpm prettier --check .
+      - name: report coverage to code climate
+        if: ${{ matrix.node-version == '18.x' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter format-coverage -t lcov coverage/lcov.info
+          ./cc-test-reporter upload-coverage
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
