@@ -1,6 +1,7 @@
 # postcss-custom-media-generator
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/allmyfutures/postcss-custom-media-generator/test.yml?branch=main&label=Unit%20Tests&style=flat-square)](https://github.com/allmyfutures/postcss-custom-media-generator)
+[![Test Coverage](https://img.shields.io/codeclimate/coverage/allmyfutures/postcss-custom-media-generator?style=flat-square)](https://codeclimate.com/github/allmyfutures/postcss-custom-media-generator/test_coverage)
 [![GitHub package.json version](https://img.shields.io/github/package-json/v/allmyfutures/postcss-custom-media-generator?style=flat-square)](https://github.com/allmyfutures/postcss-custom-media-generator/releases/latest)
 [![NPM Downloads](https://img.shields.io/npm/dt/postcss-custom-media-generator?label=npm%20downloads&style=flat-square)](https://www.npmjs.com/package/postcss-custom-media-generator)
 
