@@ -13,9 +13,7 @@ export function generateMediaQueries(map: CustomMediaInput): CustomMediaResponse
   for (const [key, breakpoint] of entries) {
     const nextBreakpoint = values[cnt + 1];
     if (nextBreakpoint) {
-      result[`--${key}-only`] = `(min-width: ${breakpoint}px) and (max-width: ${
-        nextBreakpoint - 1
-      }px)`;
+      result[`--${key}-only`] = `(min-width: ${breakpoint}px) and (max-width: ${nextBreakpoint - 1}px)`;
       result[`--${key}`] = `(min-width: ${breakpoint}px)`;
     } else {
       result[`--${key}`] = `(min-width: ${breakpoint}px)`;

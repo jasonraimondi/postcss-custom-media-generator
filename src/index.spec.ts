@@ -24,7 +24,7 @@ it("handles unhyphenated", async () => {
   await run("", "@custom-media --dark (prefers-color-scheme: dark)", config);
 });
 
-it("does something", async () => {
+it("handles number values as mobile-first", async () => {
   const config = {
     sm: 600,
     md: 800,
@@ -43,7 +43,7 @@ it("does something", async () => {
   );
 });
 
-it("works with mixed string keys", async () => {
+it("handles number and string values", async () => {
   const config = {
     "--dark": "prefers-color-scheme: dark",
     sm: 600,
