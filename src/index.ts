@@ -11,6 +11,7 @@ const plugin = (opts: Record<string, string> = {}) => {
 
     Once(root: Root) {
       for (let [key, value] of Object.entries(config).reverse()) {
+        if (!key.startsWith("--")) key = `--${key}`;
         if (value[0] !== "(" && value[value.length - 1] !== ")") value = `(${value})`;
         const rule = new AtRule({ name: "custom-media", params: `${key} ${value}` });
         root.prepend(rule);

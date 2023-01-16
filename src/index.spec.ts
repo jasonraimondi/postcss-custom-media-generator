@@ -8,9 +8,17 @@ async function run(input: any, output: any, opts = {}) {
   expect(result.warnings()).toHaveLength(0);
 }
 
-it("directly copies prehyphened", async () => {
+it("handles prehyphened", async () => {
   const config = {
     "--dark": "prefers-color-scheme: dark",
+  };
+
+  await run("", "@custom-media --dark (prefers-color-scheme: dark)", config);
+});
+
+it("handles unhyphenated", async () => {
+  const config = {
+    dark: "prefers-color-scheme: dark",
   };
 
   await run("", "@custom-media --dark (prefers-color-scheme: dark)", config);
