@@ -1,6 +1,6 @@
 {
   "name": "postcss-custom-media-generator",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "PostCSS plugin custom media generator",
   "main": "dist/index.js",
   "keywords": [

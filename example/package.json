@@ -1,7 +1,7 @@
 {
   "name": "postcss-custom-media-generator-example",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "postcss": "^8.4.21",
+    "postcss-cli": "^10.1.0",
+    "postcss-custom-media": "^9.0.1",
+    "postcss-custom-media-generator": "link:..",
+    "postcss-preset-env": "^7.8.3",
     "vite": "^4.0.0"
   }
 }

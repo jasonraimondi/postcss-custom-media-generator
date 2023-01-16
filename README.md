@@ -1,10 +1,12 @@
 # postcss-custom-media-generator
 
+This is a meta-postcss-plugin that ultimately depends on [postcss-custom-media](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media).
+
 [PostCSS] plugin custom media generator.
 
 [PostCSS]: https://github.com/postcss/postcss
 
-```diff
+```js
 module.exports = {
   plugins: [
     "postcss-custom-media-generator": {
@@ -13,11 +15,12 @@ module.exports = {
       sm: 600,
       md: 800,
       lg: 1000,
-    },
-    autoprefixer: {},
+    }
   ]
 }
 ```
+
+Becomes:
 
 ```postcss
 @custom-media --light (prefers-color-scheme: light);

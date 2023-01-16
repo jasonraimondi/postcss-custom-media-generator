@@ -1,0 +1,44 @@
+html {
+  background-color: antiquewhite;
+  color: #1a1a1a;
+}
+
+@media (--dark) {
+  html {
+    background-color: #1a1a1a;
+    color: antiquewhite;
+  }
+}
+
+@media (--small) {
+  html {
+    color: cadetblue;
+    font-family: sans-serif;
+  }
+}
+
+@media (--medium) {
+  html {
+    color: rebeccapurple;
+    font-family: serif;
+  }
+}
+
+@media (--large) {
+  html {
+    color: red;
+    font-family: mono;
+  }
+}
+
+body {
+  background-color: olive;
+
+  @media (--medium) {
+    background-color: tomato;
+  }
+
+  @media (--large) {
+    background-color: teal;
+  }
+}

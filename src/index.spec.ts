@@ -23,13 +23,16 @@ it("does something", async () => {
     lg: 1000,
   };
 
-
-  await run("", `@custom-media --sm-only (min-width: 600px) and (max-width: 799px);
+  await run(
+    "",
+    `@custom-media --sm-only (min-width: 600px) and (max-width: 799px);
 @custom-media --sm (min-width: 600px);
 @custom-media --md-only (min-width: 800px) and (max-width: 999px);
 @custom-media --md (min-width: 800px);
 @custom-media --lg (min-width: 1000px);
-@custom-media --lg-only (min-width: 1000px)`, config);
+@custom-media --lg-only (min-width: 1000px)`,
+    config,
+  );
 });
 
 it("works with mixed string keys", async () => {
@@ -39,11 +42,14 @@ it("works with mixed string keys", async () => {
     md: 800,
   };
 
-
-  await run("@custom-media --light (prefers-color-scheme: light)", `@custom-media --light (prefers-color-scheme: light);
-@custom-media --dark (prefers-color-scheme: dark);
+  await run(
+    "a { color: red; }",
+    `@custom-media --dark (prefers-color-scheme: dark);
 @custom-media --sm-only (min-width: 600px) and (max-width: 799px);
 @custom-media --sm (min-width: 600px);
 @custom-media --md (min-width: 800px);
-@custom-media --md-only (min-width: 800px)`, config);
+@custom-media --md-only (min-width: 800px);
+a { color: red; }`,
+    config,
+  );
 });

@@ -1,26 +1,23 @@
+import type { Root } from "postcss";
 import { AtRule } from "postcss";
 import { generateMediaQueries } from "./generate_media_queries";
 
-export const postcss = true;
-
-export type Options = Record<string, string>;
-
-export default (opts: Options = {}) => {
+const plugin = (opts: Record<string, string> = {}) => {
   const { strings, numbers } = extractNumbers(opts);
   const config = Object.assign(strings, generateMediaQueries(numbers), {});
 
   return {
     postcssPlugin: "postcss-custom-media-generator",
 
-    Once(root: any) {
-      for (let [key, value] of Object.entries(config)) {
+    Once(root: Root) {
+      for (let [key, value] of Object.entries(config).reverse()) {
         if (value[0] !== "(" && value[value.length - 1] !== ")") value = `(${value})`;
         const rule = new AtRule({ name: "custom-media", params: `${key} ${value}` });
-        root.append(rule);
+        root.prepend(rule);
       }
     },
   };
-}
+};
 
 function extractNumbers(obj: Record<string, string | number>) {
   let numbers: Record<string, number> = {};
@@ -34,3 +31,7 @@ function extractNumbers(obj: Record<string, string | number>) {
   }
   return { numbers, strings };
 }
+
+plugin.postcss = true;
+
+export = plugin;
