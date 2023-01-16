@@ -1,23 +1,33 @@
 # postcss-custom-media-generator
 
-This is a meta-postcss-plugin that ultimately depends on [postcss-custom-media](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media).
+Generates mobile first `@custom-media` rules from a configuration object.
 
-[PostCSS] plugin custom media generator.
+## Install
 
-[PostCSS]: https://github.com/postcss/postcss
+```shell
+pnpm add -D postcss-custom-media-generator
+```
+
+## Usage
+
+Pass in a configuration of desired global media queries. You can pass in any arbitrary key, and any valid CSS media query value. Strings will be passed directly, and numbers will be turned into mobile-first queries.
+
+A configuration object like this:
 
 ```js
 module.exports = {
-  plugins: [
+  plugins: {
     "postcss-custom-media-generator": {
+      // you can pass in any arbitrary key, and any valid CSS media query value
       "--light": "prefers-color-scheme: light",
       "--dark": "prefers-color-scheme: dark",
       sm: 600,
       md: 800,
-      lg: 1000,
-    }
-  ]
-}
+      lg: 1000
+    },
+    "postcss-custom-media": {}
+  }
+};
 ```
 
 Becomes:
@@ -33,30 +43,21 @@ Becomes:
 @custom-media --lg-only (min-width: 1000px);
 ```
 
-## Usage
+When combined with the [postcss-custom-media] plugin:
 
-**Step 1:** Install plugin:
+```postcss
+@custom-media --md (min-width: 800px);
 
-```sh
-npm install --save-dev postcss postcss-custom-media-generator
-```
+@media (--md) {
+  /* styles for medium viewport */
+}
 
-**Step 2:** Check you project for existed PostCSS config: `postcss.config.js`
-in the project root, `"postcss"` section in `package.json`
-or `postcss` in bundle config.
+/* becomes */
 
-If you do not use PostCSS, add it according to [official docs]
-and set this plugin in settings.
-
-**Step 3:** Add the plugin to plugins list:
-
-```diff
-module.exports = {
-  plugins: [
-+   require('postcss-custom-media-generator')({ /* options */ }),
-    require('autoprefixer')
-  ]
+@media (min-width: 800px) {
+  /* styles for medium viewport */
 }
 ```
 
-[official docs]: https://github.com/postcss/postcss#usage
+[postcss-custom-media]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media
+[postcss-custom-env]: https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env
