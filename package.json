@@ -1,6 +1,6 @@
 {
   "name": "postcss-custom-media-generator",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "PostCSS plugin custom media generator",
   "main": "dist/index.js",
   "keywords": [
