@@ -33,12 +33,11 @@ it("handles number values as mobile-first", async () => {
 
   await run(
     "",
-    `@custom-media --sm-only (min-width: 600px) and (max-width: 799px);
-@custom-media --sm (min-width: 600px);
-@custom-media --md-only (min-width: 800px) and (max-width: 999px);
-@custom-media --md (min-width: 800px);
-@custom-media --lg (min-width: 1000px);
-@custom-media --lg-only (min-width: 1000px)`,
+    `@custom-media --sm-only (600px <= width < 800px);
+@custom-media --sm (600px <= width);
+@custom-media --md-only (800px <= width < 1000px);
+@custom-media --md (800px <= width);
+@custom-media --lg (1000px <= width)`,
     config,
   );
 });
@@ -53,10 +52,9 @@ it("handles number and string values", async () => {
   await run(
     "a { color: red; }",
     `@custom-media --dark (prefers-color-scheme: dark);
-@custom-media --sm-only (min-width: 600px) and (max-width: 799px);
-@custom-media --sm (min-width: 600px);
-@custom-media --md (min-width: 800px);
-@custom-media --md-only (min-width: 800px);
+@custom-media --sm-only (600px <= width < 800px);
+@custom-media --sm (600px <= width);
+@custom-media --md (800px <= width);
 a { color: red; }`,
     config,
   );

@@ -2,7 +2,7 @@ type CustomMediaInput = Record<string, number>;
 // type CustomMediaResponseKey = `--${string}`;
 type CustomMediaResponse = Record<string, string>;
 
-export function generateMediaQueries(map: CustomMediaInput): CustomMediaResponse {
+export function createMobileFirstMediaQueries(map: CustomMediaInput): CustomMediaResponse {
   const result: CustomMediaResponse = {};
 
   const sortedInput = sortInput(map);
@@ -13,11 +13,10 @@ export function generateMediaQueries(map: CustomMediaInput): CustomMediaResponse
   for (const [key, breakpoint] of entries) {
     const nextBreakpoint = values[cnt + 1];
     if (nextBreakpoint) {
-      result[`--${key}-only`] = `(min-width: ${breakpoint}px) and (max-width: ${nextBreakpoint - 1}px)`;
-      result[`--${key}`] = `(min-width: ${breakpoint}px)`;
+      result[`--${key}-only`] = `${breakpoint}px <= width < ${nextBreakpoint}px`;
+      result[`--${key}`] = `${breakpoint}px <= width`;
     } else {
-      result[`--${key}`] = `(min-width: ${breakpoint}px)`;
-      result[`--${key}-only`] = result[`--${key}`];
+      result[`--${key}`] = `${breakpoint}px <= width`;
     }
     cnt++;
   }

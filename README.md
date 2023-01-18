@@ -13,11 +13,21 @@ Generates mobile first `@custom-media` rules from a configuration object.
 pnpm add -D postcss-custom-media-generator
 ```
 
+This plugin depends on further processing using one of the following methods:
+
+- If you use [postcss-preset-env], just make sure this plugin is loaded before postcss-preset-env, and you should be good to go.
+- [postcss-custom-media] and [postcss-media-minmax].
+
 ## Usage
 
-Pass in a configuration of desired global media queries. You can pass in any arbitrary key, and any valid CSS media query value. Strings will be passed directly, and numbers will be turned into mobile-first queries.
+**Note: This plugin should be run first in your PostCSS pipeline.**
 
-A configuration object like this:
+Pass in a configuration of desired global media queries.
+
+You can pass in a key of any arbitrary string, and a value of either a string or a number.
+
+- Strings should be valid CSS media queries
+- Numbers will be turned into mobile-first queries.
 
 ```js
 module.exports = {
@@ -30,7 +40,7 @@ module.exports = {
       md: 800,
       lg: 1000
     },
-    "postcss-custom-media": {}
+    "postcss-preset-env": {},
   }
 };
 ```
@@ -40,19 +50,16 @@ Becomes:
 ```postcss
 @custom-media --light (prefers-color-scheme: light);
 @custom-media --dark (prefers-color-scheme: dark);
-@custom-media --sm-only (min-width: 600px) and (max-width: 799px);
-@custom-media --sm (min-width: 600px);
-@custom-media --md-only (min-width: 800px) and (max-width: 999px);
-@custom-media --md (min-width: 800px);
-@custom-media --lg (min-width: 1000px);
-@custom-media --lg-only (min-width: 1000px);
+@custom-media --sm-only (600px <= width < 800px);
+@custom-media --sm (600px <= width);
+@custom-media --md-only (800px <= width < 1000px);
+@custom-media --md (800px <= width);
+@custom-media --lg (1000px <= width);
 ```
 
-When combined with the [postcss-custom-media] plugin:
+Write your css like this:
 
 ```postcss
-@custom-media --md (min-width: 800px);
-
 @media (--md) {
   /* styles for medium viewport */
 }
@@ -64,5 +71,6 @@ When combined with the [postcss-custom-media] plugin:
 }
 ```
 
+[postcss-media-minmax]: https://github.com/postcss/postcss-media-minmax
 [postcss-custom-media]: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media
-[postcss-custom-env]: https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env
+[postcss-preset-env]: https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env

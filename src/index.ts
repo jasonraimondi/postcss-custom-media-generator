@@ -1,10 +1,10 @@
 import type { Root } from "postcss";
 import { AtRule } from "postcss";
-import { generateMediaQueries } from "./generate_media_queries";
+import { createMobileFirstMediaQueries } from "./createMobileFirstMediaQueries";
 
 const plugin = (opts: Record<string, string> = {}) => {
   const { strings, numbers } = extractNumbers(opts);
-  const config = Object.assign(strings, generateMediaQueries(numbers), {});
+  const config = Object.assign(strings, createMobileFirstMediaQueries(numbers), {});
 
   return {
     postcssPlugin: "postcss-custom-media-generator",
